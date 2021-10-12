@@ -1,13 +1,13 @@
 import datetime
-import pyttsx3
-import speech_recognition as sr
-import wikipedia
-import webbrowser
 import os
 import random
 import smtplib
-import google
-import beautifulsoup4
+import webbrowser
+
+import speech_recognition as sr
+
+import pyttsx3
+import wikipedia
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -21,8 +21,6 @@ def sendEmail(to, content):
     server.login("jarvismypersonalai474@gmail.com", 'abcde&12345')
     server.sendmail('jarvismypersonalai474@gmail.com',to,content)
     server.close()
-
-
     return
 
 
@@ -61,6 +59,23 @@ def take_command():
         return "None"
     return query
 
+def googleSearch():
+    new = 2
+    tabUrl = "https://www.google.com/search?q="
+    term = take_command()
+    repeat = False
+    if term == "None":
+        speak("Sorry,i was unable to hear ")
+        speak("will you repeat ?")
+        whetherRepeat = take_command()
+        if whetherRepeat == "no":
+            return
+        else:
+            googleSearch()
+
+    else:
+        webbrowser.open(tabUrl + term, new=new)
+
 
 if __name__ == '__main__':
     wish_me()
@@ -82,7 +97,7 @@ if __name__ == '__main__':
             webbrowser.open("stackoverflow.com")
         elif 'open stack overflow' in query:
             webbrowser.open("stackoverflow.com")
-        elif 'open music' in query:
+        elif 'music' in query:
             music_dir = 'C:\\Users\\adars\\Music\\Playlists'
             songs = os.listdir(music_dir)
             print(songs)
@@ -111,3 +126,19 @@ if __name__ == '__main__':
                 speak("Sorry Sir , I am unable to send this mail")
         elif 'quit' in query:
             break
+        elif 'search' in query:
+            speak("Sure To find info about Something")
+            speak("Just say")
+            googleSearch()
+            break
+
+        elif 'wait' in query:
+            speak("No rush! Take your time")
+
+        elif 'hello' in query:
+            speak("hii it's good to hear from you.")
+            speak("I hope you and your loved ones are staying safe and healthy during this difficult time.")
+        elif 'how are you' in query:
+            speak("i'm fine,thanks for asking")
+            speak("This is a challenging time for us.")
+            speak("I hope you and your loved ones are staying safe and healthy")
