@@ -3,6 +3,8 @@ import os
 import random
 import smtplib
 import webbrowser
+from pygame import mixer
+import time
 
 import speech_recognition as sr
 
@@ -19,8 +21,18 @@ def sendEmail(to, content):
     server.ehlo()
     server.starttls()
     server.login("jarvismypersonalai474@gmail.com", 'abcde&12345')
-    server.sendmail('jarvismypersonalai474@gmail.com',to,content)
+    server.sendmail('jarvismypersonalai474@gmail.com', to, content)
     server.close()
+    return
+
+
+def marvel_jarvisVoice():
+    # p = vlc.MediaPlayer('')
+    # p.play()
+    mixer.init()
+    mixer.music.load('marvel_voice.mp3')
+    mixer.music.play()
+    time.sleep(20)
     return
 
 
@@ -30,6 +42,9 @@ def speak(audio):
 
 
 def wish_me():
+    # optional
+    marvel_jarvisVoice()
+
     hour = int(datetime.datetime.now().hour)
     if 0 <= hour < 12:
         speak("Good Morning!")
@@ -37,7 +52,8 @@ def wish_me():
         speak("Good Afternoon")
     else:
         speak("Good Evening")
-    speak("I am Jarvis at you Service Sir!!,How can i help you ?")
+
+    speak("I am apex at you Service Sir!!,How can i help you ?")
     return
 
 
@@ -58,6 +74,7 @@ def take_command():
         print("say that Again Please...")
         return "None"
     return query
+
 
 def googleSearch():
     new = 2
